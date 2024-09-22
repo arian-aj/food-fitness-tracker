@@ -11,7 +11,7 @@ export default function NutrientsPage() {
     // Convert nutrient values to per 100 grams
     const nutrientsPer100g = nutrients.map(nutrient => {
         const { nutrientName, unitName, value } = nutrient;
-        const valuePer100g = (value / servingSize) * 100;
+        const valuePer100g = servingSize ? (value / servingSize) * 100 : value;
         return {
             nutrientName,
             unitName,
@@ -33,7 +33,7 @@ export default function NutrientsPage() {
                     <ul>
                         {nutrientsPer100g.map((nutrient, index) => (
                             <li key={index}>
-                                <strong>{nutrient.nutrientName}:</strong> {nutrient.valuePer100g} {nutrient.unitName}
+                                <strong>{nutrient.nutrientName}:</strong> {nutrient.valuePer100g} {nutrient.unitName.toLowerCase()}
                             </li>
                         ))}
                     </ul>
