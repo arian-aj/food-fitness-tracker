@@ -11,6 +11,16 @@ export default function WeekPlan() {
         sunday: []
     });
 
+    const [newTask, setNewTask] = useState({
+        monday: '',
+        tuesday: '',
+        wednesday: '',
+        thursday: '',
+        friday: '',
+        saturday: '',
+        sunday: ''
+    });
+
     useEffect(() => {
         // Load week plan from localStorage on mount
         const storedPlan = JSON.parse(localStorage.getItem('weekPlan'));
@@ -20,12 +30,15 @@ export default function WeekPlan() {
     }, []);
 
     // Add task to the specified day
-    const addTask = (day, task) => {
-        const updatedDayTasks = [...weekPlan[day], { task, completed: false }];
-        const updatedWeekPlan = { ...weekPlan, [day]: updatedDayTasks };
-        setWeekPlan(updatedWeekPlan);
-        localStorage.setItem('weekPlan', JSON.stringify(updatedWeekPlan));
-    };
+    function addTask(day) {
+        if (newTask[day]) {
+            const updatedDayTasks = [...weekPlan[day], { task: newTask[day], completed: false }];
+            const updatedWeekPlan = { ...weekPlan, [day]: updatedDayTasks };
+            setWeekPlan(updatedWeekPlan);
+            localStorage.setItem('weekPlan', JSON.stringify(updatedWeekPlan));
+            setNewTask({ ...newTask, [day]: '' }); // Clear input after adding
+        }
+    }
 
     // Mark task as done
     function toggleTaskCompletion(day, index) {
@@ -35,7 +48,7 @@ export default function WeekPlan() {
         const updatedWeekPlan = { ...weekPlan, [day]: updatedDayTasks };
         setWeekPlan(updatedWeekPlan);
         localStorage.setItem('weekPlan', JSON.stringify(updatedWeekPlan));
-    };
+    }
 
     // Remove task from the specified day
     function removeTask(day, index) {
@@ -43,7 +56,12 @@ export default function WeekPlan() {
         const updatedWeekPlan = { ...weekPlan, [day]: updatedDayTasks };
         setWeekPlan(updatedWeekPlan);
         localStorage.setItem('weekPlan', JSON.stringify(updatedWeekPlan));
-    };
+    }
+
+    // Handle input change for adding new tasks
+    function handleInputChange(day, value) {
+        setNewTask({ ...newTask, [day]: value });
+    }
 
     return (
         <div className="p-4">
@@ -60,7 +78,9 @@ export default function WeekPlan() {
                                     checked={task.completed}
                                     onChange={() => toggleTaskCompletion(day, index)}
                                 />
-                                <span className={`flex-grow ${task.completed ? 'line-through' : ''}`}>{task.task}</span>
+                                <span className={`flex-grow ${task.completed ? 'line-through' : ''}`}>
+                                    {task.task}
+                                </span>
                                 <button
                                     className="text-red-500 ml-4"
                                     onClick={() => removeTask(day, index)}
@@ -72,15 +92,17 @@ export default function WeekPlan() {
                     </ul>
                     <input
                         type="text"
+                        value={newTask[day]}
                         placeholder={`Add task for ${day}`}
                         className="border p-2 mt-2 w-full"
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter' && e.target.value) {
-                                addTask(day, e.target.value);
-                                e.target.value = ''; // Clear input after adding
-                            }
-                        }}
+                        onChange={(e) => handleInputChange(day, e.target.value)}
                     />
+                    <button
+                        className="bg-blue-500 text-white p-2 mt-2"
+                        onClick={() => addTask(day)}
+                    >
+                        Add Task
+                    </button>
                 </div>
             ))}
         </div>
