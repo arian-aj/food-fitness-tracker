@@ -8,7 +8,7 @@ export default function SearchPage({children}) {
     const [searchedFood, setSearchedFood] = useState("");
     const {chosenFoodNutrients, setChosenFoodNutrients} = useContext(FitFoodContext)
     const apiKey = "qfr2Ea0DVI1DZj0SqNJ2S7CN0DyTpNSRg2SBVk9X"
-
+    
     useEffect(() => {
         fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${apiKey}&query=${encodeURIComponent(searchedFood)}`)
         .then(resp => {

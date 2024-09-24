@@ -5,8 +5,16 @@ export default function NutrientsPage() {
     const { chosenFoodNutrients } = useContext(FitFoodContext)
     console.log(chosenFoodNutrients);
 
+    // Check if chosenFoodNutrients is null or undefined
+    if (!chosenFoodNutrients) {
+        return <h1>No Food chosen</h1>;
+    }
+
+
     const servingSize = chosenFoodNutrients.servingSize;
     const nutrients = chosenFoodNutrients.foodNutrients;
+
+
 
     // Convert nutrient values to per 100 grams
     const nutrientsPer100g = nutrients.map(nutrient => {
@@ -24,8 +32,6 @@ export default function NutrientsPage() {
         <>
             <h1>Nutrients</h1>
             {
-                !chosenFoodNutrients? (<h1>No Food chosen</h1>
-                ) : (
                     <>
                     <h1>
                         {chosenFoodNutrients.description}
@@ -38,7 +44,7 @@ export default function NutrientsPage() {
                         ))}
                     </ul>
                     </>
-                )
+                
             }
         </>
     )
