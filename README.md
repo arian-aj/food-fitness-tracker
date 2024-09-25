@@ -1,8 +1,13 @@
-# React + Vite
+# Fitness and Food Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### [Visit the App here](https://food-fitness-tracker.onrender.com/search)
 
-Currently, two official plugins are available:
+## About the App
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The Fitness and Food Tracker is a comprehensive web application designed to help you track your food intake and plan your weekly workouts. 
+
+- **Food Tracker**: You can easily search for any food item and view its detailed nutritional values, including calories, proteins, fats, carbohydrates, and more. This feature allows you to monitor what you eat and helps you make informed dietary choices.
+  
+- **Weekly Planner**: Organize your week by adding tasks, exercises, or any other activities. You can mark tasks as completed and keep track of your progress throughout the week.
+
+Stay fit, organized, and in control of your diet with the Fitness and Food Tracker!
